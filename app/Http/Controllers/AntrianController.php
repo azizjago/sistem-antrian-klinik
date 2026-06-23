@@ -8,55 +8,56 @@ use App\Models\Layanan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class AntrianController extends Controller
 {
     public function index(Request $request): View
     {
+        $filters = $request->validate([
+            'layanan_id' => ['nullable', 'integer', 'exists:layanan,id'],
+            'status' => ['nullable', Rule::in(['menunggu', 'dipanggil', 'selesai', 'skip'])],
+        ]);
+
         $query = Antrian::with('layanan')->latest('waktu_ambil');
 
-        if ($request->filled('layanan_id')) {
-            $query->where('layanan_id', $request->layanan_id);
+        if (! empty($filters['layanan_id'])) {
+            $query->where('layanan_id', $filters['layanan_id']);
         }
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+        if (! empty($filters['status'])) {
+            $query->where('status', $filters['status']);
         }
 
         return view('antrian.index', [
             'antrian' => $query->get(),
             'layanan' => Layanan::orderBy('nama_layanan')->get(),
             'statuses' => ['menunggu', 'dipanggil', 'selesai', 'skip'],
-            'filters' => $request->only(['layanan_id', 'status']),
-        ]);
-    }
-
-    public function create(): View
-    {
-        return view('antrian.create', [
-            'layanan' => Layanan::orderBy('nama_layanan')->get(),
+            'filters' => $filters,
         ]);
     }
 
     public function store(StoreAntrianRequest $request): RedirectResponse
     {
-        $antrian = DB::transaction(function () use ($request) {
-            $layanan = Layanan::lockForUpdate()->findOrFail($request->layanan_id);
+        $data = $request->validated();
+
+        $antrian = DB::transaction(function () use ($data) {
+            $layanan = Layanan::lockForUpdate()->findOrFail($data['layanan_id']);
             $nomor = $this->generateNomorAntrian($layanan);
 
             return Antrian::create([
                 'layanan_id' => $layanan->id,
                 'nomor_antrian' => $nomor,
-                'nama_pasien' => $request->nama_pasien,
-                'nim_nip' => $request->nim_nip,
+                'nama_pasien' => $data['nama_pasien'],
+                'nim_nip' => $data['nim_nip'],
                 'status' => 'menunggu',
                 'waktu_ambil' => now(),
             ]);
         });
 
         return redirect()
-            ->route('antrian.create')
+            ->route('antrian.index')
             ->with('success', 'Antrian berhasil dibuat.')
             ->with('nomor_antrian', $antrian->nomor_antrian);
     }

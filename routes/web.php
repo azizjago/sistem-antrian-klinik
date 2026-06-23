@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('layanan', LayananController::class)->except(['show'])->middleware('role:admin');
-    Route::resource('antrian', AntrianController::class)->only(['index', 'create', 'store']);
+    Route::resource('layanan', LayananController::class)->only(['store', 'update', 'destroy'])->middleware('role:admin');
+    Route::resource('antrian', AntrianController::class)->only(['index', 'store']);
 
     Route::get('/pemanggilan', [PemanggilanController::class, 'index'])->name('pemanggilan.index')->middleware('role:admin,petugas');
     Route::post('/pemanggilan/next', [PemanggilanController::class, 'next'])->name('pemanggilan.next')->middleware('role:admin,petugas');

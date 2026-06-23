@@ -9,76 +9,233 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --clinic-blue: #3d8bfd;
-            --clinic-light: #eaf4ff;
-            --clinic-gray: #f4f6f8;
-            --clinic-text: #253044;
+            --clinic-blue: #2563eb;
+            --clinic-blue-dark: #1e40af;
+            --clinic-mint: #14b8a6;
+            --clinic-light: #eff6ff;
+            --clinic-gray: #f5f7fb;
+            --clinic-line: #dfe7f1;
+            --clinic-text: #1f2937;
+            --clinic-muted: #64748b;
         }
 
         body {
-            background: var(--clinic-gray);
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 30%),
+                linear-gradient(180deg, #ffffff 0, var(--clinic-gray) 280px);
             color: var(--clinic-text);
             font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            font-size: 15px;
         }
 
         .navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e5edf5;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid var(--clinic-line);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .navbar-brand {
+            color: var(--clinic-blue-dark) !important;
+            letter-spacing: 0;
+        }
+
+        .navbar-brand i {
+            color: var(--clinic-mint);
         }
 
         .sidebar {
-            background: #ffffff;
-            border-right: 1px solid #e5edf5;
+            background: rgba(255, 255, 255, 0.92);
+            border-right: 1px solid var(--clinic-line);
             min-height: calc(100vh - 57px);
+            box-shadow: 12px 0 30px rgba(15, 23, 42, 0.03);
         }
 
         .sidebar .nav-link {
-            color: #556274;
+            color: var(--clinic-muted);
             border-radius: 8px;
-            margin-bottom: 4px;
-            padding: 10px 12px;
+            margin-bottom: 6px;
+            padding: 11px 12px;
+            font-weight: 600;
+            transition: background-color .18s ease, color .18s ease, box-shadow .18s ease;
+        }
+
+        .sidebar .nav-link i {
+            width: 22px;
+            color: #94a3b8;
+            transition: color .18s ease;
         }
 
         .sidebar .nav-link.active,
         .sidebar .nav-link:hover {
             background: var(--clinic-light);
-            color: #0d6efd;
+            color: var(--clinic-blue-dark);
+            box-shadow: inset 3px 0 0 var(--clinic-blue);
+        }
+
+        .sidebar .nav-link.active i,
+        .sidebar .nav-link:hover i {
+            color: var(--clinic-blue);
         }
 
         .page-card,
         .stat-card {
             background: #ffffff;
-            border: 1px solid #e5edf5;
+            border: 1px solid var(--clinic-line);
             border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(37, 48, 68, 0.04);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+        }
+
+        .stat-card {
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
         }
 
         .stat-icon {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            background: var(--clinic-light);
+            background: linear-gradient(135deg, var(--clinic-light), #ecfdf5);
             color: var(--clinic-blue);
+            flex: 0 0 44px;
         }
 
         .badge-status {
             border-radius: 6px;
-            padding: 6px 10px;
+            padding: 7px 10px;
             text-transform: capitalize;
+            font-weight: 700;
+            letter-spacing: 0;
         }
 
         .main-content {
-            padding: 24px;
+            padding: 28px;
+        }
+
+        .main-content h1 {
+            color: #0f172a;
+            font-weight: 750;
+        }
+
+        .text-muted {
+            color: var(--clinic-muted) !important;
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 650;
+            padding: .55rem .9rem;
+        }
+
+        .btn-sm {
+            padding: .38rem .68rem;
+        }
+
+        .btn-primary {
+            background: var(--clinic-blue);
+            border-color: var(--clinic-blue);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: var(--clinic-blue-dark);
+            border-color: var(--clinic-blue-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--clinic-blue);
+            border-color: #b7c9f8;
+            background: #ffffff;
+        }
+
+        .btn-light {
+            background: #f8fafc;
+            border-color: var(--clinic-line);
+            color: #475569;
+        }
+
+        .form-label {
+            color: #334155;
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .form-control,
+        .form-select {
+            border-color: #cfd9e6;
+            border-radius: 8px;
+            min-height: 42px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--clinic-blue);
+            box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .12);
+        }
+
+        .table {
+            color: #334155;
+        }
+
+        .table > :not(caption) > * > * {
+            padding: .9rem .85rem;
+            border-bottom-color: #edf2f7;
+        }
+
+        .table thead th {
+            background: #f8fafc;
+            color: #475569;
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        .dataTables_wrapper .form-control,
+        .dataTables_wrapper .form-select {
+            min-height: 38px;
+        }
+
+        .modal-content {
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.18);
+        }
+
+        .modal-header {
+            border-bottom-color: var(--clinic-line);
+            background: #f8fafc;
         }
 
         @media (max-width: 991.98px) {
             .sidebar {
                 min-height: auto;
                 border-right: 0;
-                border-bottom: 1px solid #e5edf5;
+                border-bottom: 1px solid var(--clinic-line);
+            }
+
+            .sidebar .nav {
+                flex-direction: row !important;
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+
+            .sidebar .nav-link {
+                white-space: nowrap;
             }
 
             .main-content {
@@ -118,16 +275,8 @@
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     <i class="fa-solid fa-chart-line me-2"></i>Dashboard
                 </a>
-                @if(auth()->user()->isAdmin())
-                    <a class="nav-link {{ request()->routeIs('layanan.*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">
-                        <i class="fa-solid fa-briefcase-medical me-2"></i>Layanan
-                    </a>
-                @endif
-                <a class="nav-link {{ request()->routeIs('antrian.create') ? 'active' : '' }}" href="{{ route('antrian.create') }}">
-                    <i class="fa-solid fa-ticket me-2"></i>Ambil Antrian
-                </a>
-                <a class="nav-link {{ request()->routeIs('antrian.index') ? 'active' : '' }}" href="{{ route('antrian.index') }}">
-                    <i class="fa-solid fa-list-check me-2"></i>Data Antrian
+                <a class="nav-link {{ request()->routeIs('antrian.*') ? 'active' : '' }}" href="{{ route('antrian.index') }}">
+                    <i class="fa-solid fa-ticket me-2"></i>Antrian
                 </a>
                 <a class="nav-link {{ request()->routeIs('pemanggilan.*') ? 'active' : '' }}" href="{{ route('pemanggilan.index') }}">
                     <i class="fa-solid fa-bullhorn me-2"></i>Pemanggilan

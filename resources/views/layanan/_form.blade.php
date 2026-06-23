@@ -13,5 +13,5 @@
 </div>
 <div class="d-flex gap-2 mt-4">
     <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk me-2"></i>Simpan</button>
-    <a href="{{ route('layanan.index') }}" class="btn btn-light">Batal</a>
+    <a href="{{ route('antrian.index') }}" class="btn btn-light">Batal</a>
 </div>

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Manajemen Layanan')
-@section('page_title', 'Manajemen Layanan')
-@section('page_subtitle', 'Kelola jenis layanan klinik kampus.')
+@section('title', 'Master Layanan Internal')
+@section('page_title', 'Master Layanan Internal')
+@section('page_subtitle', 'Data layanan dikelola dari halaman Antrian.')
 @section('page_action')
-    <a href="{{ route('layanan.create') }}" class="btn btn-primary">
-        <i class="fa-solid fa-plus me-2"></i>Tambah Layanan
+    <a href="{{ route('antrian.index') }}" class="btn btn-primary">
+        <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Antrian
     </a>
 @endsection
 

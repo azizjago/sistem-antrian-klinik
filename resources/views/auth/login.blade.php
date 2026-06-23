@@ -7,29 +7,86 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --clinic-blue: #2563eb;
+            --clinic-blue-dark: #1e40af;
+            --clinic-mint: #14b8a6;
+            --clinic-line: #dfe7f1;
+            --clinic-muted: #64748b;
+        }
+
         body {
             min-height: 100vh;
-            background: #f4f6f8;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(20, 184, 166, .12), transparent 28%),
+                radial-gradient(circle at 82% 10%, rgba(37, 99, 235, .12), transparent 30%),
+                linear-gradient(180deg, #ffffff 0, #f5f7fb 100%);
             display: flex;
             align-items: center;
+            color: #1f2937;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
         }
 
         .login-card {
-            border: 1px solid #e5edf5;
+            border: 1px solid var(--clinic-line);
             border-radius: 8px;
-            box-shadow: 0 12px 32px rgba(37, 48, 68, 0.06);
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.11);
+            overflow: hidden;
         }
 
         .brand-icon {
-            width: 54px;
-            height: 54px;
+            width: 58px;
+            height: 58px;
             border-radius: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #eaf4ff;
-            color: #0d6efd;
+            background: linear-gradient(135deg, #eff6ff, #ecfdf5);
+            color: var(--clinic-blue);
             font-size: 24px;
+        }
+
+        .form-label {
+            color: #334155;
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .form-control {
+            border-color: #cfd9e6;
+            border-radius: 8px;
+            min-height: 44px;
+        }
+
+        .form-control:focus {
+            border-color: var(--clinic-blue);
+            box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .12);
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 700;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--clinic-blue);
+            border-color: var(--clinic-blue);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, .18);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: var(--clinic-blue-dark);
+            border-color: var(--clinic-blue-dark);
+        }
+
+        .text-muted {
+            color: var(--clinic-muted) !important;
+        }
+
+        .alert {
+            border-radius: 8px;
         }
     </style>
 </head>
